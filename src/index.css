@@ -20,8 +20,8 @@ code {
 }
 
 .card {
-  width: 360px;
-  min-height: 400px;
+  width: 100%;
+  min-height: 100%;
   box-shadow: 0 0 4px #d4ecff;
   border-radius: 4px;
   cursor: pointer;
