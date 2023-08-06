@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import "../index.css";
 
 const FetchData = () => {
-  const [Data, setData] = useState("");
+  const [data, setData] = useState([]);
+  const [articleCount, setArticleCount] = useState(20); // Change this count as needed
+
   const fetchData = async () => {
     try {
       const response = await axios.get(
@@ -22,25 +24,30 @@ const FetchData = () => {
     fetchData();
   }, []);
 
+  const displayedArticles = data.slice(0, articleCount);
+
   return (
     <div className="container my-4">
       <h3>
         <u className="card-header"> TOP HEADLINES </u>
       </h3>
       <div className="card-container d-flex justify-content-center align-items-center flex-column my-3">
-        {Data
-          ? Data.map((items, index) => (
-              <>
-                <div className="card my-3" style={{ width: "500px" }}>
-                  <h5>{items.title}</h5>
-                  <img src={items.urlToImage} alt="/" className="card-header" />
-                  <p className="card-content">{items.content}</p>
-                  <Link to={items.url}>View more</Link>
-                </div>
-              </>
-            ))
-          : "Loading..."}
+        {displayedArticles.length > 0 ? (
+          displayedArticles.map((item, index) => (
+            <div className="card my-3" style={{ width: "500px" }} key={index}>
+              <h5>{item.title}</h5>
+              <img src={item.urlToImage} alt="/" className="card-header" />
+              <p className="card-content">{item.content}</p>
+              <Link to={item.url}>View more</Link>
+            </div>
+          ))
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
+      <button onClick={() => setArticleCount(articleCount + 5)}>
+        Load More
+      </button>
     </div>
   );
 };
