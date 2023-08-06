@@ -12,7 +12,6 @@ const FetchData = () => {
       const response = await axios.get(
         "https://newsapi.org/v2/everything?domains=wsj.com&apiKey=19625187b58b4ba18818e8f434b6bed1"
       );
-      console.log("response", response);
       setData(response.data.articles);
     } catch (error) {
       console.error("Error fetching data:", error);
